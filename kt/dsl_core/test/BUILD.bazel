@@ -1,0 +1,11 @@
+load("//rules:kt_junit5_test.bzl", "kt_junit5_test")
+
+kt_junit5_test(
+    name = "triggers-test",
+    srcs = glob(["**/*.kt"]),
+    test_class = "TriggersTest",
+    test_package = "dsl_core",
+    deps = [
+        "//kt/dsl_core/kotlin:dsl-core-lib",
+    ],
+)

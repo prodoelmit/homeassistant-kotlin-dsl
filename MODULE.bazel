@@ -1,0 +1,146 @@
+###############################################################################
+# Bazel now uses Bzlmod by default to manage external dependencies.
+# Please consider migrating your external dependencies from WORKSPACE to MODULE.bazel.
+#
+# For more details, please check https://github.com/bazelbuild/bazel/issues/18958
+###############################################################################
+module(
+    name = "homeassistant-dsl",
+    repo_name = "homeassistant-dsl",
+)
+
+bazel_dep(
+    name = "aspect_bazel_lib",
+    version = "2.7.3",
+)
+bazel_dep(
+    name = "rules_kotlin",
+    version = "1.9.0",
+)
+bazel_dep(
+    name = "rules_jvm_external",
+    version = "5.3",
+)
+
+maven = use_extension("@rules_jvm_external//:extensions.bzl", "maven")
+
+MAVEN_KGRAPHQL_VERSION = "0.19.0"
+
+MAVEN_KTOR_VERSION = "2.0.3"
+
+maven.install(
+    artifacts = [
+        "ch.qos.logback:logback-classic:1.2.9",
+        "com.github.ajalt.clikt:clikt-jvm:4.2.1",
+        "com.github.doyaaaaaken:kotlin-csv-jvm:1.9.0",
+        "io.klogging:klogging-jvm:0.4.13",
+        "io.klogging:slf4j-klogging:0.3.3",
+        "io.kotest:kotest-assertions-core:5.5.5",
+        "io.kotest:kotest-runner-junit5-jvm:5.5.5",
+        "io.kotest:kotest-runner-junit5:5.5.5",
+        "junit:junit:4.13.2",
+        "com.charleskorn.kaml:kaml:0.59.0",
+        "com.charleskorn.kaml:kaml-jvm:0.59.0",
+        "org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.6.4",
+        "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4",
+        "org.jetbrains.kotlinx:kotlinx-coroutines-debug:1.6.4",
+        "org.jetbrains.kotlinx:kotlinx-datetime-jvm:0.4.0",
+        "org.jetbrains.kotlinx:kotlinx-datetime:0.4.0",
+        "org.jetbrains.kotlinx:kotlinx-serialization-core-jvm:1.0.1",
+        "org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.2",
+        "org.junit.jupiter:junit-jupiter-api:5.10.0",
+        "org.junit.jupiter:junit-jupiter-engine:5.10.0",
+        "org.junit.jupiter:junit-jupiter-params:5.10.0",
+        "org.junit.platform:junit-platform-console:1.10.0",
+        "org.redundent:kotlin-xml-builder:1.9.0",
+        "org.apache.maven:maven-artifact:3.9.6",
+        "com.squareup.moshi:moshi:1.14.0",
+        "com.squareup.moshi:moshi-kotlin:1.14.0",
+        "com.squareup.moshi:moshi-adapters:1.14.0",
+        "com.squareup.okhttp3:okhttp:4.11.0",
+    ],
+    fail_if_repin_required = True,
+    lock_file = "//:maven_install.json",
+    repositories = [
+        # maven-central
+        "https://repo1.maven.org/maven2/",
+        "https://repo.fusesource.com/nexus/content/repositories/releases-3rd-party/",
+        "https://clojars.org/repo/",  # for google-diff-match-patch
+        "https://jitpack.io/",
+    ],
+)
+use_repo(maven, "maven", "unpinned_maven")
+#use_repo(maven, "maven")
+
+# >>> DOCKER
+bazel_dep(
+    name = "rules_oci",
+    version = "1.5.1",
+)
+bazel_dep(
+    name = "container_structure_test",
+    version = "1.16.0",
+)
+
+oci = use_extension("@rules_oci//oci:extensions.bzl", "oci")
+oci.pull(
+    name = "distroless_base",
+    image = "gcr.io/distroless/base",
+    platforms = ["linux/amd64"],
+    # 'latest' is not reproducible, but it's convenient.
+    # During the build we print a WARNING message that includes recommended 'digest' and 'platforms'
+    # values which you can use here in place of 'tag' to pin for reproducibility.
+    tag = "latest",
+)
+use_repo(oci, "distroless_base")
+oci.pull(
+    name = "distroless_java_debug",
+    digest = "sha256:73c3687a9d7277f480a560ae380ba16acbe8eb5a0f459560b4466bb71e6288a1",
+    #    tag = "debug",
+    image = "gcr.io/distroless/java17",
+)
+use_repo(oci, "distroless_java_debug")
+oci.pull(
+    name = "distroless_java",
+    digest = "sha256:161a1d97d592b3f1919801578c3a47c8e932071168a96267698f4b669c24c76d",
+    image = "gcr.io/distroless/java17",
+)
+use_repo(oci, "distroless_java")
+oci.pull(
+    name = "distroless_python3",
+    digest = "sha256:d306c94efafe2ceee85bb8d2a4ed905d5273bcc2730c1939ad9583a33aa1f898",
+    image = "gcr.io/distroless/python3",
+    platforms = ["linux/amd64"],
+)
+use_repo(oci, "distroless_python3")
+oci.pull(
+    name = "distroless_python3_debug",
+    digest = "sha256:957265e4abce661135996737a6b22cc98a950bf85450751b9116f4944d36f47a",
+    # tag = "debug",
+    image = "gcr.io/distroless/python3",
+    platforms = ["linux/amd64"],
+)
+use_repo(oci, "distroless_python3_debug")
+oci.pull(
+    name = "slim_python3",
+    digest = "sha256:0b4b0801ae9ae61bb57bc738b1efbe4e16b927fd581774c8edfed90f0e0f01ad",
+    image = "python",
+    #    tag = "3.9-slim",
+    platforms = ["linux/amd64"],
+)
+use_repo(oci, "slim_python3")
+oci.pull(
+    name = "slim_java",
+    digest = "sha256:2e7658fb62d1c6f319ff9870614deaf8e06038dd41eec3d1ecdcfabd186234fd",
+    image = "openjdk",
+    #    tag = "17.0.2-slim-buster",
+    platforms = ["linux/amd64"],
+)
+use_repo(oci, "slim_java")
+oci.pull(
+    name = "nginx_alpine_slim",
+    digest = "sha256:ef587d1eb99e991291c582bfb74f27db27f7ca2c095d4ba06cc3f7c910a0c7b3",
+    image = "docker.io/library/nginx",
+    platforms = ["linux/amd64"],
+)
+use_repo(oci, "nginx_alpine_slim")
