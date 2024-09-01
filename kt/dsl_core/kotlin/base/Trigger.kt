@@ -8,10 +8,4 @@ import kotlinx.serialization.Serializable
 sealed class Trigger(
     val platform: String,
 ) {
-    @SerialName("entity_id")
-    val entityIds: MutableList<String> = mutableListOf()
-
-    fun entities(vararg entities: Entity) {
-        entities.mapTo(entityIds) {it.entityId}
-    }
 }

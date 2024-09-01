@@ -1,12 +1,11 @@
 package dsl_core.base
 
-import com.charleskorn.kaml.YamlMap
-import com.charleskorn.kaml.YamlNode
+import dsl_core.base.Trigger
 import kotlinx.serialization.Serializable
 
 
 @Serializable
-class StateTrigger : Trigger("state") {
+class StateTrigger : MultiEntityTrigger("state") {
     object State {
         val ON = "on"
         val OFF = "off"
@@ -16,3 +15,8 @@ class StateTrigger : Trigger("state") {
     var transitionTo: String? = null
 
 }
+
+fun Triggers.stateTrigger(init: StateTrigger.() -> Unit) {
+    trigger(StateTrigger().apply(init))
+}
+

@@ -8,15 +8,15 @@ import kotlinx.serialization.encodeToString
 
 
 @Serializable
-class Automation {
+open class Automation {
     lateinit var id: String
     var alias: String? = null
     var description: String? = null
 
     private val triggers = mutableListOf<Trigger>()
 
-    fun triggers(init: TriggersBuilder.() -> Unit) {
-        val builder = TriggersBuilder()
+    fun triggers(init: Triggers.() -> Unit) {
+        val builder = Triggers()
         builder.init()
         triggers.addAll(builder.build())
     }
@@ -27,10 +27,6 @@ class Automation {
         )
         return Yaml(configuration = configuration).encodeToString(this)
     }
-}
-
-fun automation(init: Automation.() -> Unit): Automation {
-    return Automation().apply(init)
 }
 
 inline fun <reified T> toYaml(value: T): String {
