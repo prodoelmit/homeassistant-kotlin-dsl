@@ -7,5 +7,4 @@ inline fun <reified T> assertRenders(what: T, expected: String) {
     assert(actual == expected) {
         "Got:\n---\n$actual\nExpected:\n---\n$expected"
     }
-
 }

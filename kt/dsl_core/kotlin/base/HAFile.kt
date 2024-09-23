@@ -4,11 +4,10 @@ import java.nio.file.Path
 import kotlin.io.path.writeText
 
 abstract class HAFile(
-    val relativePath: Path
+    val absolutePath: Path
 ) {
-    final fun write(baseDirectory: Path) {
-        val path = baseDirectory.resolve(relativePath)
-        path.writeText(render())
+    final fun write() {
+        absolutePath.writeText(render())
     }
 
     abstract fun render(): String

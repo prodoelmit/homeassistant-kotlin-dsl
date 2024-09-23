@@ -13,7 +13,6 @@ class StateTrigger : MultiEntityTrigger("state") {
 
     var transitionFrom: String? = null
     var transitionTo: String? = null
-
 }
 
 fun Triggers.stateTrigger(init: StateTrigger.() -> Unit) {

@@ -1,27 +1,51 @@
 package dsl_core.base
 
+import kt.dsl_core.kotlin.entities.InputBooleanEntity
 import java.nio.file.Path
 import kotlin.io.path.Path
 
-class HAProject {
-    val automations = mutableListOf<Automation>()
-    lateinit var baseDirectory: Path
+enum class FileOption(val argName: String, val defaultPath: String) {
+    AUTOMATIONS("automations", "automations.yaml"),
+    INPUT_BOOLEANS("input-booleans", "input_booleans.yaml");
+}
 
-    fun automation(init: Automation.() -> Unit) {
-        Automation().apply(init).apply {
-            automations.add(this)
-        }
-    }
+class FileLocations {
+    private val locations = mutableMapOf<FileOption, Path>()
 
-    fun automation(automation: Automation) {
-        automations.add(automation)
-    }
+    fun get(option: FileOption): Path = locations.getOrDefault(option, Path.of(option.defaultPath))
 
-    fun write() {
-        HAAutomationsFile(Path("dsl_automations.yaml"), automations).write(baseDirectory)
+    fun set(option: FileOption, path: Path) {
+        locations[option] = path
     }
 }
 
-fun project(init: HAProject.() -> Unit) {
-    HAProject().apply(init).write()
+class HAProject(private val fileLocations: FileLocations) {
+    val automations = mutableListOf<Automation>()
+    val inputBooleans = mutableListOf<InputBooleanEntity>()
+
+    fun automation(init: Automation.() -> Unit) {
+        automations.add(Automation().apply(init))
+    }
+
+    fun automation(existingAutomation: Automation) {
+        automations.add(existingAutomation)
+    }
+
+    fun inputBoolean(init: InputBooleanEntity.() -> Unit) {
+        inputBooleans.add(InputBooleanEntity().apply(init))
+    }
+
+    fun inputBoolean(existingInputBoolean: InputBooleanEntity) {
+        inputBooleans.add(existingInputBoolean)
+    }
+
+    fun write() {
+        HAAutomationsFile(fileLocations.get(FileOption.AUTOMATIONS), automations).write()
+        HAInputBooleansFile(fileLocations.get(FileOption.INPUT_BOOLEANS), inputBooleans).write()
+        println("Files written successfully")
+    }
+}
+
+fun project(fileLocations: FileLocations, init: HAProject.() -> Unit): HAProject {
+    return HAProject(fileLocations).apply(init)
 }

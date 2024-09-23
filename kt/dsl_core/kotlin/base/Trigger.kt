@@ -6,6 +6,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 sealed class Trigger(
-    val platform: String,
+    open var platform: String,
 ) {
 }
