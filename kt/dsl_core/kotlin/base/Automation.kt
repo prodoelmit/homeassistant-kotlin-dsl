@@ -20,18 +20,4 @@ open class Automation {
         builder.init()
         triggers.addAll(builder.build())
     }
-
-    fun toYaml(): String {
-        val configuration = YamlConfiguration(
-            polymorphismStyle = PolymorphismStyle.None
-        )
-        return Yaml(configuration = configuration).encodeToString(this)
-    }
-}
-
-inline fun <reified T> toYaml(value: T): String {
-    val configuration = YamlConfiguration(
-        polymorphismStyle = PolymorphismStyle.None
-    )
-    return Yaml(configuration = configuration).encodeToString(value)
 }

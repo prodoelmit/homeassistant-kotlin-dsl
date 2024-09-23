@@ -2,17 +2,21 @@ package kt.dsl_core.kotlin.entities
 
 import dsl_core.base.Entity
 import dsl_core.base.HABoolean
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
 class InputBooleanEntity(
-    val initial: HABoolean = HABoolean.OFF
+    var initial: HABoolean = HABoolean.OFF
 )
 : Entity("") {
-
     constructor(entityId: String,
         initial: HABoolean): this(initial) {
-//            this.
-//            this.entityId = entityId
+            this.entityId = entityId
         }
+
+    init {
+        type = "input_boolean"
+    }
+
 }

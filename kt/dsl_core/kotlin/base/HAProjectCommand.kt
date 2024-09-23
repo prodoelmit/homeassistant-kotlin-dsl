@@ -1,4 +1,5 @@
 package dsl_core.base
+
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.parameters.options.default
 import com.github.ajalt.clikt.parameters.options.option
@@ -13,7 +14,10 @@ class HAProjectCommand(val init: HAProject.() -> Unit) : CliktCommand() {
         .path()
         .default(Path.of(FileOption.AUTOMATIONS.defaultPath))
 
-    private val inputBooleansPath by option("--${FileOption.INPUT_BOOLEANS.argName}", help = "Path for input booleans file")
+    private val inputBooleansPath by option(
+        "--${FileOption.INPUT_BOOLEANS.argName}",
+        help = "Path for input booleans file"
+    )
         .path()
         .default(Path.of(FileOption.INPUT_BOOLEANS.defaultPath))
 
@@ -23,8 +27,6 @@ class HAProjectCommand(val init: HAProject.() -> Unit) : CliktCommand() {
             set(FileOption.INPUT_BOOLEANS, inputBooleansPath)
         }
 
-        HAProject(fileLocations).apply {
-            init
-        }.write()
+        HAProject(fileLocations).apply(init).write()
     }
 }
