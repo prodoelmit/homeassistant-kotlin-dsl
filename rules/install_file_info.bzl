@@ -1,0 +1,3 @@
+InstallFileInfo = provider(
+    fields = ["script"],
+)
