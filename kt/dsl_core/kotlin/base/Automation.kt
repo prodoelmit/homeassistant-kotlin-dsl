@@ -5,6 +5,7 @@ import com.charleskorn.kaml.Yaml
 import com.charleskorn.kaml.YamlConfiguration
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.encodeToString
+import kt.dsl_core.kotlin.actions.HAAction
 
 
 @Serializable
@@ -14,10 +15,17 @@ open class Automation {
     var description: String? = null
 
     private val triggers = mutableListOf<Trigger>()
+    private val actions = mutableListOf<HAAction>()
 
     fun triggers(init: Triggers.() -> Unit) {
         val builder = Triggers()
         builder.init()
         triggers.addAll(builder.build())
+    }
+
+    fun actions(init: Actions.() -> Unit) {
+        val builder = Actions()
+        builder.init()
+        actions.addAll(builder.build())
     }
 }

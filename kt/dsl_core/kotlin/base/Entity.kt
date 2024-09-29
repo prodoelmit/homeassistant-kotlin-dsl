@@ -32,7 +32,7 @@ open class Entity(
 
 
     companion object {
-        fun forTypeAndEntityId(entityId: String, type: String): Entity {
+        fun forTypeAndEntityId(type: String, entityId: String): Entity {
             return Entity(combinedEntityId = "$type.$entityId")
         }
     }

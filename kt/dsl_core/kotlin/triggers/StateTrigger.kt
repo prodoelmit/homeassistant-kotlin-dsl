@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 
 
 @Serializable
-class StateTrigger : MultiEntityTrigger("state") {
+open class StateTrigger : MultiEntityTrigger("state") {
     object State {
         val ON = "on"
         val OFF = "off"

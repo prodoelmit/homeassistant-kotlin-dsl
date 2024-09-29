@@ -16,6 +16,6 @@ sealed class MultiEntityTrigger(
     }
 
     fun entities(vararg entities: Entity) {
-        entities.mapTo(entityIds) { it.entityId }
+        entities.mapTo(entityIds) { it.combinedEntityId }
     }
 }
