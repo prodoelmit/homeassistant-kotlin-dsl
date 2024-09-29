@@ -14,6 +14,7 @@ sealed class CardCondition {
 
     fun entity(entity: Entity) {
         if (entity is CounterEntity) {
+            // Ugly hack for now, because counters shouldn't have entityId in serialized values
             this.entityId = "counter.${entity.alias}"
         } else {
             this.entityId = entity.combinedEntityId
