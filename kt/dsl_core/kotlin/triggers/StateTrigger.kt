@@ -1,6 +1,7 @@
 package dsl_core.base
 
 import dsl_core.base.Trigger
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 
@@ -11,7 +12,9 @@ open class StateTrigger : MultiEntityTrigger("state") {
         val OFF = "off"
     }
 
+    @SerialName("from")
     var transitionFrom: String? = null
+    @SerialName("to")
     var transitionTo: String? = null
 }
 

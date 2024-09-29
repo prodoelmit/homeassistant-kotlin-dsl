@@ -21,13 +21,7 @@ open class ServiceAction(
     var service: String = ""
     var metadata: MutableMap<String, String> = mutableMapOf()
     var data: MutableMap<String, String> = mutableMapOf()
-    var target: Target = Target("")
-
-    var entityId: String
-        get() = target.entityId
-        set(value) {
-            target.entityId = value
-        }
+    var target: Target? = null
 
     @Serializable
     class Target(
@@ -35,8 +29,12 @@ open class ServiceAction(
         var entityId: String
     )
 
-    fun entity(entity: Entity) {
-        service = entity.combinedEntityId
+    fun target(entity: Entity) {
+        if (target == null) {
+            target = ServiceAction.Target(entity.combinedEntityId)
+        } else {
+            target!!.entityId = entity.combinedEntityId
+        }
     }
 }
 

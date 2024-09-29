@@ -6,7 +6,8 @@ import kotlinx.serialization.encodeToString
 
 inline fun <reified T> toYaml(value: T): String {
     val configuration = YamlConfiguration(
-        polymorphismStyle = PolymorphismStyle.None
+        polymorphismStyle = PolymorphismStyle.None,
+        encodeDefaults = false
     )
     return Yaml(configuration = configuration).encodeToString(value)
 }
