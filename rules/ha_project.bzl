@@ -12,9 +12,10 @@ def _ha_project_impl(ctx):
     output_files, arguments = _process_output(ctx, "automations_out", "--automations", output_files, arguments)
     output_files, arguments = _process_output(ctx, "input_booleans_out", "--input-booleans", output_files, arguments)
     output_files, arguments = _process_output(ctx, "counters_out", "--counters", output_files, arguments)
+    output_files, arguments = _process_output(ctx, "dashboard_out", "--dashboard", output_files, arguments)
 
     ctx.actions.run(
-        outputs = output_files,
+        outputs = output_files + ctx.outputs.dashboards_outs,
         executable = ctx.executable.generator,
         arguments = arguments,
     )
@@ -35,6 +36,12 @@ ha_project = rule(
         "counters_out": attr.output(
             mandatory = True,
             doc = "Output file for counters helpers",
+        ),
+        "dashboard_out": attr.output(
+            doc = "One of expected dashboard outputs. Used to calculate directory for all of them",
+        ),
+        "dashboards_outs": attr.output_list(
+            doc = "Expected outputs for dashboards. They should be in same directory",
         ),
         "generator": attr.label(
             default = Label("//tools:ha_project_generator"),

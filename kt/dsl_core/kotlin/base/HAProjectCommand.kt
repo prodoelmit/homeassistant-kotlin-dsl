@@ -28,11 +28,19 @@ class HAProjectCommand(val init: HAProject.() -> Unit) : CliktCommand() {
         .path()
         .default(Path.of(FileOption.COUNTERS.defaultPath))
 
+    private val dashboardPath by option(
+        "--${FileOption.DASHBOARD.argName}",
+        help = "Path for dashboards dir"
+    )
+        .path()
+        .default(Path.of(FileOption.DASHBOARD.defaultPath))
+
     override fun run() {
         val fileLocations = FileLocations().apply {
             set(FileOption.AUTOMATIONS, automationsPath)
             set(FileOption.INPUT_BOOLEANS, inputBooleansPath)
             set(FileOption.COUNTERS, countersPath)
+            set(FileOption.DASHBOARD, dashboardPath)
         }
 
         HAProject(fileLocations).apply(init).write()

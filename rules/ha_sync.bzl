@@ -71,7 +71,7 @@ ha_sync = rule(
             doc = "List of directories to sync with --delete option",
         ),
         "rsync_options": attr.string(
-            default = "-av",
+            default = "-av --mkpath",
             doc = "Additional rsync options",
         ),
         "final_dir": attr.string(
