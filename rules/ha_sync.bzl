@@ -63,11 +63,11 @@ ha_sync = rule(
     implementation = _ha_sync_impl,
     attrs = {
         "individual_files": attr.string_list(
-            default = ["scripts.yaml", "configuration.yaml", "scenes.yaml", "automations.yaml", "secrets.yaml"],
+            mandatory = True,
             doc = "List of individual files to sync",
         ),
         "sync_directories": attr.string_list(
-            default = ["qweqwe"],
+            mandatory = True,
             doc = "List of directories to sync with --delete option",
         ),
         "rsync_options": attr.string(
