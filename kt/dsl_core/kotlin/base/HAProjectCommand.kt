@@ -21,10 +21,18 @@ class HAProjectCommand(val init: HAProject.() -> Unit) : CliktCommand() {
         .path()
         .default(Path.of(FileOption.INPUT_BOOLEANS.defaultPath))
 
+    private val countersPath by option(
+        "--${FileOption.COUNTERS.argName}",
+        help = "Path for counters file"
+    )
+        .path()
+        .default(Path.of(FileOption.COUNTERS.defaultPath))
+
     override fun run() {
         val fileLocations = FileLocations().apply {
             set(FileOption.AUTOMATIONS, automationsPath)
             set(FileOption.INPUT_BOOLEANS, inputBooleansPath)
+            set(FileOption.COUNTERS, countersPath)
         }
 
         HAProject(fileLocations).apply(init).write()

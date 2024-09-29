@@ -11,6 +11,7 @@ def _ha_project_impl(ctx):
 
     output_files, arguments = _process_output(ctx, "automations_out", "--automations", output_files, arguments)
     output_files, arguments = _process_output(ctx, "input_booleans_out", "--input-booleans", output_files, arguments)
+    output_files, arguments = _process_output(ctx, "counters_out", "--counters", output_files, arguments)
 
     ctx.actions.run(
         outputs = output_files,
@@ -29,7 +30,11 @@ ha_project = rule(
         ),
         "input_booleans_out": attr.output(
             mandatory = True,
-            doc = "Output file for input booleans",
+            doc = "Output file for input booleans helpers",
+        ),
+        "counters_out": attr.output(
+            mandatory = True,
+            doc = "Output file for counters helpers",
         ),
         "generator": attr.label(
             default = Label("//tools:ha_project_generator"),

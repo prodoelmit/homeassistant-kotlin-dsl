@@ -1,5 +1,7 @@
-package dsl_core.base
+package dsl_core.base.files
 
+import dsl_core.base.HAFile
+import dsl_core.base.toYaml
 import kt.dsl_core.kotlin.entities.InputBooleanEntity
 import java.nio.file.Path
 

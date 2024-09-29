@@ -31,6 +31,7 @@ fi
 
 mkdir -p "$INSTALL_DIR/$(dirname {name})"
 cp "{src}" "$INSTALL_DIR/{name}"
+chmod 600 "$INSTALL_DIR/{name}"
 echo "Installed {src} to $INSTALL_DIR/{name}"
 """.format(
             src = src.short_path,
