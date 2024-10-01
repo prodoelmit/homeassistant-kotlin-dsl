@@ -1,10 +1,8 @@
 package kt.dsl_core.kotlin.ui.cards
 
-import dsl_core.base.Entities
 import dsl_core.base.Entity
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import kt.dsl_core.kotlin.ui.View
 
 
 @Serializable
@@ -25,7 +23,7 @@ class EntitiesCard : Card() {
     fun entity(entity: Entity, init: EntityData.() -> Unit = {}) {
         entities.add(
             EntityData()
-                .apply { entityId = entity.combinedEntityId }
+                .apply { entityId = entity.id() }
                 .apply(init)
         )
     }

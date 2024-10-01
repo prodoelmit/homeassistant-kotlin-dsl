@@ -7,7 +7,7 @@ class TriggersTest {
 
     @Test
     fun `simple trigger`() {
-        val entity = Entity("entity1")
+        val entity = Entity.forId("entity1")
         val automation = Automation().apply {
             id = "entity1 state trigger"
             alias = "e1_s_t"

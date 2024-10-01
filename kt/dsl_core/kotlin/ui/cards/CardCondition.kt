@@ -3,7 +3,6 @@ package kt.dsl_core.kotlin.ui.cards
 import dsl_core.base.Entity
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import kt.dsl_core.kotlin.entities.CounterEntity
 
 
 @Serializable
@@ -13,12 +12,7 @@ sealed class CardCondition {
     var entityId: String = ""
 
     fun entity(entity: Entity) {
-        if (entity is CounterEntity) {
-            // Ugly hack for now, because counters shouldn't have entityId in serialized values
-            this.entityId = "counter.${entity.alias}"
-        } else {
-            this.entityId = entity.combinedEntityId
-        }
+        this.entityId = entity.id()
     }
 }
 

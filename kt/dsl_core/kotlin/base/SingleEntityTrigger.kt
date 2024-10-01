@@ -18,6 +18,6 @@ open class SingleEntityTrigger(
     }
 
     fun entity(entity: Entity) {
-        entityId = entity.combinedEntityId
+        entityId = entity.id()
     }
 }

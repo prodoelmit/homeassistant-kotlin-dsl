@@ -31,9 +31,9 @@ open class ServiceAction(
 
     fun target(entity: Entity) {
         if (target == null) {
-            target = ServiceAction.Target(entity.combinedEntityId)
+            target = ServiceAction.Target(entity.id())
         } else {
-            target!!.entityId = entity.combinedEntityId
+            target!!.entityId = entity.id()
         }
     }
 }

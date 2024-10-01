@@ -1,5 +1,6 @@
-package kt.dsl_core.kotlin.ui.cards
+package kt.dsl_core.kotlin.ui.cards.actions
 
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -13,9 +14,16 @@ sealed class CardAction {
         Assist("assist"),
         None("none")
     }
-    var action: String = "toggle"
+    @SerialName("action")
+    var actionType: String = "toggle"
 
     fun action(action: Actions) {
-        this.action = action.value
+        this.actionType = action.value
+    }
+}
+
+class CardActionDsl(val consumer: (CardAction) -> Unit) {
+    fun action(existingAction: CardAction) {
+        consumer(existingAction)
     }
 }

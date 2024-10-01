@@ -9,12 +9,16 @@ import kotlinx.serialization.Transient
 @Serializable
 class CounterEntity(
 )
-: Entity("") {
+: Entity() {
     constructor(alias: String): this() {
         this.alias = alias
         }
 
     init {
+    }
+
+    override fun id(): String {
+        return alias
     }
 
 
