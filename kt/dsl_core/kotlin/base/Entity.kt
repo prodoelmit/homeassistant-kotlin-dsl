@@ -27,6 +27,10 @@ open class Entity(
         refreshCombinedEntityId()
     }
 
+    protected fun clearCombinedEntityId() {
+        combinedEntityId = ""
+    }
+
 //    final fun entityId(): String {
 //        return myEntityId
 //    }

@@ -41,6 +41,8 @@ class MushroomTemplateCard: Card() {
             doubleTapAction = action
         }.apply(init)
     }
+
+    var layout: String? = null
 }
 
 fun Cards.mushroomTemplateCard(init: MushroomTemplateCard.() -> Unit) {

@@ -6,6 +6,7 @@ object ActionNames {
         val TurnOn = "switch.turn_on"
         val TurnOff = "switch.turn_off"
     }
+
     object MediaPlayer {
         val TurnOn = "media_player.turn_on"
         val TurnOff = "media_player.turn_off"
@@ -29,6 +30,7 @@ object ActionNames {
         val Join = "media_player.join"
         val Unjoin = "media_player.unjoin"
     }
+
     object Climate {
         val SetAuxHeat = "climate.set_aux_heat"
         val SetPresetMode = "climate.set_preset_mode"
@@ -40,5 +42,12 @@ object ActionNames {
         val TurnOn = "climate.turn_on"
         val TurnOff = "climate.turn_off"
         val Toggle = "climate.toggle"
+    }
+
+    object InputBoolean {
+        val TurnOn = "input_boolean.turn_on"
+        val TurnOff = "input_boolean.turn_off"
+        val Toggle = "input_boolean.toggle"
+        val Reload = "input_boolean.reload"
     }
 }

@@ -31,7 +31,7 @@ class FileLocations {
 
 class HAProject(private val fileLocations: FileLocations) {
     val automations = mutableListOf<Automation>()
-    val inputBooleans = mutableListOf<InputBooleanEntity>()
+    val inputBooleans = mutableMapOf<String, InputBooleanEntity>()
     val counters = mutableMapOf<String, CounterEntity>()
     val dashboards = mutableMapOf<String, Dashboard>()
     val scripts = mutableMapOf<String, HAScript>()
@@ -45,11 +45,11 @@ class HAProject(private val fileLocations: FileLocations) {
     }
 
     fun inputBoolean(init: InputBooleanEntity.() -> Unit) {
-        inputBooleans.add(InputBooleanEntity().apply(init))
+        inputBoolean(InputBooleanEntity().apply(init))
     }
 
     fun inputBoolean(existingInputBoolean: InputBooleanEntity) {
-        inputBooleans.add(existingInputBoolean)
+        inputBooleans[existingInputBoolean.alias] = existingInputBoolean
     }
 
     fun counter(existingCounter: CounterEntity) {
