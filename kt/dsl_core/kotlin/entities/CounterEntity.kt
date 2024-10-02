@@ -18,7 +18,7 @@ class CounterEntity(
     }
 
     override fun id(): String {
-        return alias
+        return "counter.$alias"
     }
 
 
