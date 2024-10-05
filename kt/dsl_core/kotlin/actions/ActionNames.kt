@@ -6,6 +6,11 @@ object ActionNames {
         val TurnOn = "switch.turn_on"
         val TurnOff = "switch.turn_off"
     }
+    object Light {
+        val Toggle = "light.toggle"
+        val TurnOn = "light.turn_on"
+        val TurnOff = "light.turn_off"
+    }
 
     object MediaPlayer {
         val TurnOn = "media_player.turn_on"
@@ -50,4 +55,19 @@ object ActionNames {
         val Toggle = "input_boolean.toggle"
         val Reload = "input_boolean.reload"
     }
+
+    object Counter {
+        val Increment = "counter.increment"
+        val Decrement = "counter.decrement"
+        val Reset = "counter.reset"
+        val SetValue = "counter.set_value"
+    }
+
+    object ToDo {
+        val GetItems = "todo.get_items"
+        val AddItem = "todo.add_item"
+        val UpdateItem = "todo.update_item"
+        val RemoveItem = "todo.remove_item"
+    }
+
 }
