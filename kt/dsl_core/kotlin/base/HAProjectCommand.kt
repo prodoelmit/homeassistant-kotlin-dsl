@@ -28,6 +28,13 @@ class HAProjectCommand(val init: HAProject.() -> Unit) : CliktCommand() {
         .path()
         .default(Path.of(FileOption.COUNTERS.defaultPath))
 
+    private val binarySensorsPath by option(
+        "--${FileOption.BINARY_SENSORS.argName}",
+        help = "Path for binary sensors file"
+    )
+        .path()
+        .default(Path.of(FileOption.BINARY_SENSORS.defaultPath))
+
     private val scriptsPath by option(
         "--${FileOption.SCRIPTS.argName}",
         help = "Path for scripts file"
@@ -49,6 +56,7 @@ class HAProjectCommand(val init: HAProject.() -> Unit) : CliktCommand() {
             set(FileOption.COUNTERS, countersPath)
             set(FileOption.DASHBOARD, dashboardPath)
             set(FileOption.SCRIPTS, scriptsPath)
+            set(FileOption.BINARY_SENSORS, binarySensorsPath)
         }
 
         HAProject(fileLocations).apply(init).write()

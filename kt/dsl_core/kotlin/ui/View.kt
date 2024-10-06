@@ -14,5 +14,6 @@ class View {
     enum class Type() {
         @SerialName("masonry") Masonry,
         @SerialName("sidebar") Sidebar,
+        @SerialName("panel") Panel,
     }
 }

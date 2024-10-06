@@ -1,6 +1,7 @@
 package kt.dsl_core.kotlin.ui.cards
 
 import dsl_core.base.Entity
+import kotlinx.serialization.SealedClassSerializer
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -29,5 +30,20 @@ sealed class CardCondition {
 fun ConditionalCardConditions.numericState(init: NumericStateCardCondition.() -> Unit) {
     condition(
         NumericStateCardCondition().apply(init)
+    )
+}
+
+@Serializable class StateCardCondition(): CardCondition() {
+    init {
+        condition = "state"
+    }
+
+    var state: String = ""
+
+}
+
+fun ConditionalCardConditions.state(init: StateCardCondition.() -> Unit) {
+    condition(
+        StateCardCondition().apply(init)
     )
 }

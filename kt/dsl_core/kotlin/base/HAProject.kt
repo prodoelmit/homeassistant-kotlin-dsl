@@ -1,6 +1,7 @@
 package dsl_core.base
 
 import dsl_core.base.files.*
+import kt.dsl_core.kotlin.entities.BinarySensorEntity
 import kt.dsl_core.kotlin.entities.CounterEntity
 import kt.dsl_core.kotlin.entities.InputBooleanEntity
 import kt.dsl_core.kotlin.ui.Dashboard
@@ -12,7 +13,8 @@ enum class FileOption(val argName: String, val defaultPath: String) {
     COUNTERS("counters", "counters.yaml"),
     INPUT_BOOLEANS("input-booleans", "input_booleans.yaml"),
     DASHBOARD("dashboard", "dashboard"),
-    SCRIPTS("scripts", "scripts.yaml")
+    SCRIPTS("scripts", "scripts.yaml"),
+    BINARY_SENSORS("binary-sensors", "binary_sensors.yaml")
 }
 
 class FileLocations {
@@ -35,6 +37,7 @@ class HAProject(private val fileLocations: FileLocations) {
     val counters = mutableMapOf<String, CounterEntity>()
     val dashboards = mutableMapOf<String, Dashboard>()
     val scripts = mutableMapOf<String, HAScript>()
+    val binarySensors = mutableListOf<BinarySensorEntity>()
 
     fun automation(init: Automation.() -> Unit) {
         automations.add(Automation().apply(init))
@@ -64,12 +67,17 @@ class HAProject(private val fileLocations: FileLocations) {
         scripts[existingScript.id()] = existingScript
     }
 
+    fun binarySensor(existingBinarySensorEntity: BinarySensorEntity) {
+        binarySensors.add(existingBinarySensorEntity)
+    }
+
 
     fun write() {
         HAAutomationsFile(fileLocations.get(FileOption.AUTOMATIONS), automations).write()
         HAInputBooleansFile(fileLocations.get(FileOption.INPUT_BOOLEANS), inputBooleans).write()
         HACountersFile(fileLocations.get(FileOption.COUNTERS), counters).write()
         HAScriptsFile(fileLocations.get(FileOption.SCRIPTS), scripts).write()
+        HABinarySensorsFile(fileLocations.get(FileOption.BINARY_SENSORS), binarySensors).write()
         dashboards.forEach { dashboardName, dashboard ->
             println("writing dashboard ${dashboardName}")
             HADashboardFile(fileLocations.get(dashboard), dashboard).write()

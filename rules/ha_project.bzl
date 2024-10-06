@@ -12,6 +12,7 @@ def _ha_project_impl(ctx):
     output_files, arguments = _process_output(ctx, "automations_out", "--automations", output_files, arguments)
     output_files, arguments = _process_output(ctx, "input_booleans_out", "--input-booleans", output_files, arguments)
     output_files, arguments = _process_output(ctx, "counters_out", "--counters", output_files, arguments)
+    output_files, arguments = _process_output(ctx, "binary_sensors_out", "--binary-sensors", output_files, arguments)
     output_files, arguments = _process_output(ctx, "scripts_out", "--scripts", output_files, arguments)
     output_files, arguments = _process_output(ctx, "dashboard_out", "--dashboard", output_files, arguments)
 
@@ -37,6 +38,10 @@ ha_project = rule(
         "counters_out": attr.output(
             mandatory = True,
             doc = "Output file for counters helpers",
+        ),
+        "binary_sensors_out": attr.output(
+            mandatory = True,
+            doc = "Output file for binary sensors",
         ),
         "scripts_out": attr.output(
             mandatory = True,
