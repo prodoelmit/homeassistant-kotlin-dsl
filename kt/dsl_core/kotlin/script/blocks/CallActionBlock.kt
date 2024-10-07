@@ -1,10 +1,9 @@
 package kt.dsl_core.kotlin.script.blocks
 
 import dsl_core.base.Entity
-import dsl_core.base.HAScriptBlocks
+import dsl_core.base.ScriptBlocksConsumer
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.serializer
 
 @Serializable
 open class CallActionBlock: HAScriptBlock {
@@ -48,13 +47,13 @@ class CallMediaActionBlock(): HAScriptBlock {
     }
 }
 
-fun HAScriptBlocks.callAction(init: CallActionBlock.() -> Unit) {
+fun ScriptBlocksConsumer.callAction(init: CallActionBlock.() -> Unit) {
     block(
         CallActionBlock().apply(init)
     )
 }
 
-fun HAScriptBlocks.callMediaAction(init: CallMediaActionBlock.() -> Unit) {
+fun ScriptBlocksConsumer.callMediaAction(init: CallMediaActionBlock.() -> Unit) {
     block(
         CallMediaActionBlock().apply(init)
     )

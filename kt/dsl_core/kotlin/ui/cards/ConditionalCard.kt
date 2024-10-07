@@ -1,11 +1,12 @@
 package kt.dsl_core.kotlin.ui.cards
 
 import kotlinx.serialization.Serializable
+import kt.dsl_core.kotlin.conditions.Condition
 import kt.dsl_core.kotlin.ui.View
 
 @Serializable
 class ConditionalCard(): Card() {
-    var conditions = mutableListOf<CardCondition>()
+    var conditions = mutableListOf<Condition>()
     var card: Card? = null
     init {
         type = "conditional"
@@ -32,8 +33,13 @@ fun Cards.conditional(init: ConditionalCard.() -> Unit) {
     )
 }
 
-class ConditionalCardConditions(val card: ConditionalCard) {
-    fun condition(existingCondition: CardCondition) {
+class ConditionalCardConditions(val card: ConditionalCard): ConditionsDsl {
+    override fun condition(existingCondition: Condition) {
         card.conditions.add(existingCondition)
     }
 }
+
+interface ConditionsDsl {
+    fun condition(existingCondition: Condition)
+}
+

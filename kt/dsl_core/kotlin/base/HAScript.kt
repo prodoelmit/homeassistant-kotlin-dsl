@@ -26,13 +26,12 @@ class HAScript {
         get() = "script.$myId"
 
 
-
     constructor(init: HAScript.() -> Unit) {
         apply(init)
     }
 
-    fun blocks(init: HAScriptBlocks.() -> Unit) {
-        HAScriptBlocks(this).apply(init)
+    fun blocks(init: ScriptBlocksConsumer.() -> Unit) {
+        ScriptBlocksConsumer(sequence).apply(init)
     }
 }
 
@@ -43,10 +42,14 @@ fun HAProject.script(init: HAScript.() -> Unit) {
 }
 
 
+interface ScriptBlocksDsl {
+    fun block(existingBlock: HAScriptBlock)
+
+}
 
 
-class HAScriptBlocks(val script: HAScript) {
+class ScriptBlocksConsumer(val target: MutableList<HAScriptBlock>) {
     fun block(existingBlock: HAScriptBlock) {
-        script.sequence.add(existingBlock)
+        target.add(existingBlock)
     }
 }

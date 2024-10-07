@@ -70,4 +70,8 @@ object ActionNames {
         val RemoveItem = "todo.remove_item"
     }
 
+    object Remote {
+        val SendCommand = "remote.send_command"
+    }
+
 }
