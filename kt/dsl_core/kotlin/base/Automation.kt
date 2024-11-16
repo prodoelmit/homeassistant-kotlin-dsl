@@ -7,6 +7,9 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.encodeToString
 import kt.dsl_core.kotlin.actions.HAAction
+import kt.dsl_core.kotlin.conditions.Condition
+import kt.dsl_core.kotlin.script.blocks.ConditionsConsumer
+import kt.dsl_core.kotlin.ui.cards.ConditionsDsl
 
 
 @Serializable
@@ -18,6 +21,9 @@ open class Automation {
     @SerialName("trigger")
     private val triggers = mutableListOf<Trigger>()
 
+    @SerialName("condition")
+    private val conditions = mutableListOf<Condition>()
+
     @SerialName("action")
     private val actions = mutableListOf<HAAction>()
 
@@ -27,9 +33,14 @@ open class Automation {
         triggers.addAll(builder.build())
     }
 
+    fun conditions(init: ConditionsConsumer.() -> Unit) {
+        ConditionsConsumer(this.conditions).apply(init)
+    }
+
     fun actions(init: Actions.() -> Unit) {
         val builder = Actions()
         builder.init()
         actions.addAll(builder.build())
     }
 }
+

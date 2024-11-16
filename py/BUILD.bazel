@@ -1,4 +1,5 @@
 load("@rules_python//python:pip.bzl", "compile_pip_requirements")
+load("@py_deps//:requirements.bzl", "requirement")
 
 compile_pip_requirements(
     name = "requirements",
@@ -10,3 +11,19 @@ compile_pip_requirements(
 )
 
 exports_files(["requirements_lock.txt"])
+
+# In BUILD file:
+py_binary(
+    name = "fix_entity_fields_in_automations",
+    srcs = ["fix_entity_fields_in_automations.py"],
+    visibility = ["//visibility:public"],
+    deps = [requirement("PyYAML")],
+)
+
+#genrule(
+#    name = "transform_yaml",
+#    srcs = [":scripts_merged"],
+#    outs = ["scripts_with_fixed_entity.yaml"],
+#    cmd = "$(location :yaml_transformer) $(location :scripts_merged) $@",
+#    tools = [":yaml_transformer"],
+#)

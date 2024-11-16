@@ -16,6 +16,13 @@ open class StateTrigger : MultiEntityTrigger("state") {
     var transitionFrom: String? = null
     @SerialName("to")
     var transitionTo: String? = null
+
+    @SerialName("for")
+    var forDuration: HADuration? = null
+
+    fun forDuration(init: HADuration.() -> Unit) {
+        forDuration = HADuration().apply(init)
+    }
 }
 
 fun Triggers.stateTrigger(init: StateTrigger.() -> Unit) {

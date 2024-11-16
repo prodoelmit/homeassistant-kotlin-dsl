@@ -9,7 +9,7 @@ import kt.dsl_core.kotlin.ui.cards.ConditionsDsl
 @Serializable
 sealed class Condition {
     var condition: String = ""
-    // This field should be named `entity_id` when used in scripts
+    // This field should be named `entity_id` when used in scripts and in automation.conditions
     // For now I just `sed` it after rendering
     @SerialName("entity")
     var entityId: String = ""
