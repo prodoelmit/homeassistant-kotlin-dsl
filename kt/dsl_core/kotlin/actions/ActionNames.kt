@@ -74,4 +74,13 @@ object ActionNames {
         val SendCommand = "remote.send_command"
     }
 
+    object Timer {
+        val Cancel = "timer.cancel"
+        val Change = "timer.change"
+        val Finish = "timer.finish"
+        val Pause = "timer.pause"
+        val Reload = "timer.reload"
+        val Start = "timer.start"
+    }
+
 }
