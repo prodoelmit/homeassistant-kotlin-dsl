@@ -83,4 +83,15 @@ object ActionNames {
         val Start = "timer.start"
     }
 
+    object Cover {
+        val OpenCover = "cover.open_cover"
+        val CloseCover = "cover.close_cover"
+        val StopCover = "cover.stop_cover"
+        val Toggle = "cover.toggle"
+        val OpenCoverTilt = "cover.open_cover_tilt"
+        val CloseCoverTilt = "cover.close_cover_tilt"
+        val StopCoverTilt = "cover.stop_cover_tilt"
+        val ToggleTilt = "cover.toggle_tilt"
+    }
+
 }

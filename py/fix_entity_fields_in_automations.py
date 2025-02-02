@@ -11,21 +11,23 @@ def fix_entity_fields(data):
     elif isinstance(data, dict):
         result = {}
         for key, value in data.items():
-            if key == 'condition':
-                # Process conditions
-                if isinstance(value, list):
-                    new_conditions = []
-                    for condition in value:
-                        if isinstance(condition, dict) and 'entity' in condition:
-                            # Create new dict with renamed field
-                            new_condition = condition.copy()
-                            new_condition['entity_id'] = new_condition.pop('entity')
-                            new_conditions.append(new_condition)
-                        else:
-                            new_conditions.append(fix_entity_fields(condition))
-                    result[key] = new_conditions
-                else:
-                    result[key] = fix_entity_fields(value)
+            # If this is a condition dictionary that has 'entity'
+            if key == 'condition' and isinstance(value, dict) and 'entity' in value:
+                new_value = value.copy()
+                new_value['entity_id'] = new_value.pop('entity')
+                result[key] = new_value
+            # If this is a condition with nested conditions
+            elif key == 'conditions' and isinstance(value, list):
+                new_conditions = []
+                for condition in value:
+                    if isinstance(condition, dict) and 'entity' in condition:
+                        new_condition = condition.copy()
+                        new_condition['entity_id'] = new_condition.pop('entity')
+                        new_conditions.append(new_condition)
+                    else:
+                        new_conditions.append(fix_entity_fields(condition))
+                result[key] = new_conditions
+            # For all other cases, recurse
             else:
                 result[key] = fix_entity_fields(value)
         return result
