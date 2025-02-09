@@ -17,7 +17,7 @@ def fix_entity_fields(data):
                 new_value['entity_id'] = new_value.pop('entity')
                 result[key] = new_value
             # If this is a condition with nested conditions
-            elif key == 'conditions' and isinstance(value, list):
+            elif (key == 'conditions' or 'condition') and isinstance(value, list):
                 new_conditions = []
                 for condition in value:
                     if isinstance(condition, dict) and 'entity' in condition:
