@@ -92,6 +92,7 @@ object ActionNames {
         val CloseCoverTilt = "cover.close_cover_tilt"
         val StopCoverTilt = "cover.stop_cover_tilt"
         val ToggleTilt = "cover.toggle_tilt"
+        val SetPosition = "cover.set_cover_position"
     }
 
 }

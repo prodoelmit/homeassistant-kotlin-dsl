@@ -12,6 +12,9 @@ class RemoteSendBlock : HAScriptBlock {
     var target: Target = Target()
     var data: MutableMap<String, String> = mutableMapOf()
 
+    @SerialName("continue_on_error")
+    var continueOnError: Boolean = true
+
     init {
         action = ActionNames.Remote.SendCommand
     }

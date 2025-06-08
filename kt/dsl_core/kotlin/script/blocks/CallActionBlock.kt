@@ -11,6 +11,9 @@ open class CallActionBlock: HAScriptBlock {
     var target: Target = Target()
     var data: MutableMap<String, String> =  mutableMapOf()
 
+    @SerialName("continue_on_error")
+    var continueOnError: Boolean = true
+
     @Serializable
     class Target(
         @SerialName("entity_id")
@@ -21,6 +24,7 @@ open class CallActionBlock: HAScriptBlock {
         target.entityIds.add(entity.id())
     }
 
+
 }
 
 @Serializable
@@ -28,6 +32,9 @@ class CallMediaActionBlock(): HAScriptBlock {
     var action: String = ""
     var target: Target = Target()
     var data: MutableMap<String, String> =  mutableMapOf()
+
+    @SerialName("continue_on_error")
+    var continueOnError: Boolean = true
 
     @Serializable
     class Target(
