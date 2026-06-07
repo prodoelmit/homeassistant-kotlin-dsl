@@ -4,9 +4,9 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 class TimePatternTrigger: Trigger("time_pattern") {
-    var hours: String = "0"
-    var minutes: String = "0"
-    var seconds: String = "0"
+    var hours: String? = null
+    var minutes: String? = null
+    var seconds: String? = null
 
     fun hours(hours: Int) {
         this.hours = hours.toString()
