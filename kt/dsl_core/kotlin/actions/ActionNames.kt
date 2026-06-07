@@ -56,6 +56,16 @@ object ActionNames {
         val Reload = "input_boolean.reload"
     }
 
+    object InputSelect {
+        val SelectOption = "input_select.select_option"
+        val SetOptions = "input_select.set_options"
+        val SelectFirst = "input_select.select_first"
+        val SelectLast = "input_select.select_last"
+        val SelectNext = "input_select.select_next"
+        val SelectPrevious = "input_select.select_previous"
+        val Reload = "input_select.reload"
+    }
+
     object Counter {
         val Increment = "counter.increment"
         val Decrement = "counter.decrement"
